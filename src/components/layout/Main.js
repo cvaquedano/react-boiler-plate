@@ -8,10 +8,11 @@ const Main = () => {
 
     useEffect(() => {
         usuarioAutenticado()
+        // eslint-disable-next-line
     }, []);
 
     return (
-        <h1>Desde Main</h1>
+        <h1>This is the main page. algo use as default</h1>
     );
 };
 

@@ -6,8 +6,6 @@ const tokenAuth = token => {
     } else {
         clienteAxios.defaults.headers.Authorization = '';
     }
-    console.log('token es');
-    console.log(clienteAxios.defaults.headers.Authorization);
 }
 
 export default tokenAuth;

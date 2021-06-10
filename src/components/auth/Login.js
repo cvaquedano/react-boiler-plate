@@ -27,6 +27,7 @@ const Login = (props) => {
             showAlert(mensaje.msg, mensaje.categoria)
         }
 
+        // eslint-disable-next-line
     }, [props, autenticado, mensaje]);
 
     const onChange = e =>{

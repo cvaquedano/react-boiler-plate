@@ -9,6 +9,7 @@ import {
     MASTER_ERROR,
     OBTENER_MASTER_STATUS,
     AGREGAR_MASTER_STATUS,
+    EDIT_MASTER,
     // VALIDAR_MASTER_STATUS,
     MASTER_STATUS_ACTUAL,
     EDIT_MASTER_STATUS,
@@ -58,7 +59,6 @@ const MasterState = props  => {
     const obtenerMaster = async () =>{
         try {
             const respuesta = await clienteAxios.get('/api/master');
-
             dispatch({
                 type:OBTENER_MASTER,
                 payload: respuesta.data
@@ -77,7 +77,7 @@ const MasterState = props  => {
         }
     }
 
-    const setMAsterActual =  id => {
+    const setMasterActual =  id => {
         dispatch({
             type: MASTER_ACTUAL,
             payload: id
@@ -106,6 +106,36 @@ const MasterState = props  => {
         }
 
     };
+
+    const editMaster = async datos =>{
+        try {
+            if(datos.genderText==='1'){
+                datos.gender = Boolean(true);
+            } else {
+                datos.gender = Boolean(false);
+            }
+
+            datos.name = `${datos.firstName.trim()} ${datos.lastName.trim()}`;
+            await clienteAxios.put(`/api/Master/${datos.id}`,datos);
+
+            dispatch({
+                type:EDIT_MASTER,
+                payload: datos
+            });
+
+        } catch (error) {
+
+            const alerta = {
+                msg: error.response.data,
+                categoria: 'alerta-error'
+            }
+
+            dispatch({
+                type: MASTER_STATUS_ERROR,
+                payload: alerta
+            })
+        }
+    }
 
     const agregarMasterStatus = async datos =>{
         try {
@@ -217,7 +247,8 @@ const MasterState = props  => {
                 masterStatus : state.masterStatus,
                 agregarMaster,
                 obtenerMaster,
-                setMAsterActual,
+                setMasterActual,
+                editMaster,
                 eliminarMaster,
                 agregarMasterStatus,
                 obtenerMasterStatus,

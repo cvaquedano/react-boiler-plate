@@ -8,25 +8,29 @@ import AuthState from './context/authentication/authState';
 import tokenAuth from './config/tokenAuth';
 import PrivateRoute from "./components/Routers/PrivateRoute";
 import MyAppRoutes from './components/Routers/MyAppRoutes';
+import MasterState from './context/masters/masterState';
 
 const token = localStorage.getItem('token');
 tokenAuth(token);
 function App() {
   return (
-    <AlertState>
-      <AuthState>
-        <Router>
-          <Switch>
-            <Route exact path="/" component={Login} />
-            <Route exact path="/signup" component={SignUp} />
-            <PrivateRoute
-              path='/'
-              component={MyAppRoutes}
-            />
-          </Switch>
-        </Router>
-      </AuthState>
-    </AlertState>
+    <MasterState>
+      <AlertState>
+        <AuthState>
+          <Router>
+            <Switch>
+              <Route exact path="/" component={Login} />
+              <Route exact path="/signup" component={SignUp} />
+              <PrivateRoute
+                path='/'
+                component={MyAppRoutes}
+              />
+            </Switch>
+          </Router>
+        </AuthState>
+      </AlertState>
+    </MasterState>
+
   );
 }
 

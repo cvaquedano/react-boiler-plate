@@ -9,12 +9,13 @@ const Bar = () => {
 
      useEffect(()=>{
         usuarioAutenticado()
+        // eslint-disable-next-line
      },[]);
 
     return (
        <header className="app-header">
            {usuario ? <p className="nombre-usuario">Hello <span>{usuario.name}</span></p> : null}
-           
+
 
            <nav className="nav-principal">
                <button
