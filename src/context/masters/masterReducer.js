@@ -12,7 +12,13 @@ import {
     EDIT_MASTER_STATUS,
     MASTER_STATUS_ACTUAL,
     ELIMINAR_MASTER_STATUS,
-    MASTER_STATUS_ERROR
+    MASTER_STATUS_ERROR,
+    OBTENER_MASTER_DETAIL,
+    EDIT_MASTER_DETAIL,
+    AGREGAR_MASTER_DETAIL,
+    MASTER_DETAIL_ACTUAL,
+    ELIMINAR_MASTER_DETAIL,
+    MASTER_DETAIL_ERROR
 
 } from '../../types';
 
@@ -41,17 +47,61 @@ export default (state, action)=>{
                 master: state.masters
                     .filter(master =>
                         master.id === action.payload
-                        ),
+                        )[0],
+            };
+        case EDIT_MASTER:
+            return{
+                ...state,
+                masters : state.masters.map(masters =>
+                    masters.id === action.payload.id ? masters = action.payload :
+                    masters
+                )
             };
         case ELIMINAR_MASTER:
+        return {
+            ...state,
+            masters: state.masters
+                .filter(master =>
+                    master.id !== action.payload
+                    ),
+            master: null
+        };
+
+        case OBTENER_MASTER_DETAIL:
             return {
                 ...state,
-                masters: state.masters
-                    .filter(master =>
-                        master.id !== action.payload
-                        ),
-                master: null
+                masterDetails: action.payload
             };
+        case AGREGAR_MASTER_DETAIL:
+            return {
+                ...state,
+                masterDetails: [...state.masterDetails,action.payload]
+            };
+        case MASTER_DETAIL_ACTUAL:
+            return {
+                ...state,
+                masterDetail: state.masterDetails
+                    .filter(masterDetail =>
+                        masterDetail.id === action.payload
+                        )[0],
+            };
+        case EDIT_MASTER_DETAIL:
+            return{
+                ...state,
+                masterDetails : state.masterDetails.map(masterDetails =>
+                    masterDetails.id === action.payload.id ? masterDetails = action.payload :
+                    masterDetails
+                )
+            };
+        case ELIMINAR_MASTER_DETAIL:
+        return {
+            ...state,
+            masterDetails: state.masterDetails
+                .filter(masterDetails =>
+                    masterDetails.id !== action.payload
+                    ),
+            masterDetail: null
+        };
 
         case OBTENER_MASTER_STATUS:
             return {
@@ -63,14 +113,13 @@ export default (state, action)=>{
                 ...state,
                 mastersStatus: [...state.mastersStatus,action.payload]
             };
-
         case MASTER_STATUS_ACTUAL:
             return {
                 ...state,
                 masterStatus: state.mastersStatus
                     .filter(masterStatus =>
                         masterStatus.id === action.payload
-                        )
+                        )[0]
             };
         case ELIMINAR_MASTER_STATUS:
             return {
@@ -81,16 +130,6 @@ export default (state, action)=>{
                         ),
                         masterStatus: null
             };
-
-        case EDIT_MASTER:
-            return{
-                ...state,
-                masters : state.masters.map(masters =>
-                    masters.id === action.payload.id ? masters = action.payload :
-                    masters
-                )
-            }
-
         case EDIT_MASTER_STATUS:
             return{
                 ...state,
@@ -98,8 +137,9 @@ export default (state, action)=>{
                     masterStatus.id === action.payload.id ? masterStatus = action.payload :
                     masterStatus
                 )
-            }
+            };
 
+        case MASTER_DETAIL_ERROR:
         case MASTER_STATUS_ERROR:
         case MASTER_ERROR:
             return {
