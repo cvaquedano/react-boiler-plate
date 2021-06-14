@@ -16,7 +16,7 @@ const MasterStatusEdit = () => {
     const {masterStatus, editMasterStatus} = masterContext;
 
     useEffect(()=>{
-        setMasterStatusLocal(masterStatus[0])
+        setMasterStatusLocal(masterStatus)
     },[masterStatus]);
 
     // al recargar la pagina pueda que el state se pierda y de un error

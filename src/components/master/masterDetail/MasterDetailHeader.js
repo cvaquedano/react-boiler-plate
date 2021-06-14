@@ -1,7 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import MasterContext from '../../../context/masters/masterContext';
 
-const MasterHeader = () => {
+const MasterDetailHeader = () => {
+
+    const masterContext = useContext(MasterContext);
+    const {master} = masterContext;
+
+    const {id} = master;
+
     return (
         <nav className='navbar navbar-expand-lg navbar-dark bg-primary justify-content-between'>
             <div className='container'>
@@ -11,11 +18,11 @@ const MasterHeader = () => {
                     </Link>
                 </h1>
             </div>
-            <Link to={'/master/new'}
+            <Link to={`/master/${id}/detail/new`}
             className='btn btn-danger nuevo-post d-block d-md-inline-block'
-                >Add Master &#43;</Link>
+                >Add Master Detail &#43;</Link>
             </nav>
     );
 };
 
-export default MasterHeader;
+export default MasterDetailHeader;

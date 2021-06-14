@@ -36,17 +36,30 @@ const Master = ({master}) => {
     const redirectoToEditMaster = master => {
 
         setMasterActual(master.id);
-        //dispatch(obtenerProductoEditarAction(masterStatus));
         history.push(`/master/edit/${master.id}`);
     }
+
+    const redirectoToMasterDetail = master => {
+
+        setMasterActual(master.id);
+        history.push(`/master/${master.id}/detail`);
+    }
+
 
     return (
         <tr>
             <td>{name}</td>
-            <td><span className="font-weight-bold"> {dob}</span></td>
+            <td><span className="font-weight-bold"> {dob.slice(0,10)}</span></td>
             <td>{gender ? 'Male' : 'Female'}</td>
             <td className="acciones">
-            <button
+                <button
+                    type="button"
+                    className="btn btn-primary mr-2"
+                    onClick={() => redirectoToMasterDetail(master)}
+                >
+                    Detail
+                </button>
+                <button
                     type="button"
                     className="btn btn-primary mr-2"
                     onClick={() => redirectoToEditMaster(master)}

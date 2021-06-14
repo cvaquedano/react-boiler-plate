@@ -2,6 +2,20 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import MasterContext from '../../context/masters/masterContext';
 
+import styled from '@emotion/styled'
+
+const Select = styled.select`
+    display:block;
+    width:100%;
+    padding:1rem;
+    border:1px solid #e1e1e1;
+    -webkit-appearance: none;
+`;
+
+const InputRadio = styled.input`
+   margin: 0 1rem;
+`;
+
 const MasterEdit = () => {
 
     const history = useHistory();
@@ -29,13 +43,13 @@ const MasterEdit = () => {
 
     useEffect(()=>{
         const masterForEdit = {
-            id :master[0].id,
-            firstName :master[0].name.split(' ')[0],
-            lastName : master[0].name.split(' ')[1],
-            dob: master[0].dob.slice(0,10),
-            masterStatusEntityId : master[0].masterStatusEntityId,
-            gender: master[0].gender,
-            genderText: master[0].gender ? '1' : '0'
+            id :master.id,
+            firstName :master.name.split(' ')[0],
+            lastName : master.name.split(' ')[1],
+            dob: master.dob.slice(0,10),
+            masterStatusEntityId : master.masterStatusEntityId,
+            gender: master.gender,
+            genderText: master.gender ? '1' : '0'
         }
         setMasterLocal(masterForEdit)
     },[master]);
@@ -113,7 +127,7 @@ const MasterEdit = () => {
                             />
                             <div>
                                 <label>Gender</label>
-                                <input
+                                <InputRadio
                                     type="radio"
                                     name="genderText"
                                     value='1'
@@ -121,7 +135,7 @@ const MasterEdit = () => {
                                     onChange={updateState}
 
                                 /> Male
-                                <input
+                                <InputRadio
                                     type="radio"
                                     name="genderText"
                                     value='0'
@@ -131,7 +145,7 @@ const MasterEdit = () => {
                             </div>
 
                             <label>Status</label>
-                            <select
+                            <Select
                                 onChange={updateState}
                                 name="masterStatusEntityId"
                                 value={masterStatusEntityId}
@@ -140,7 +154,7 @@ const MasterEdit = () => {
                                 {mastersStatus.map(opcion => (
                                     <option key={opcion.Id} value={opcion.id}>{opcion.value}</option>
                                 ))}
-                            </select>
+                            </Select>
                        </div>
 
                       <button

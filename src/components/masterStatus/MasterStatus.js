@@ -54,7 +54,7 @@ const MasterStatus = ({masterStatus}) => {
                 </button>
                 <button
                     type="button"
-                    className="btn btn-eliminar"
+                    className="btn btn-danger"
                     onClick={() => confirmDeleteMasterStatus(id)}
                 >
                     Eliminar

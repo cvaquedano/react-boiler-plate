@@ -12,7 +12,11 @@ const Main = () => {
     }, []);
 
     return (
-        <h1>This is the main page. algo use as default</h1>
+        <div>
+            <h1>This is the main page. algo use as default</h1>
+            <h2>Debe de listar las tecnologias, patrones o cualqueir informacion relevante sobre como se elaboro este proyecto</h2>
+
+        </div>
     );
 };
 

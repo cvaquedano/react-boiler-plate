@@ -8,11 +8,13 @@ import MasterList from '../master/MasterList';
 import MasterNew from '../master/MasterNew';
 import MasterEdit from '../master/MasterEdit';
 
-import Detalle from '../master/Detalle';
 
 import MasterStatusList from '../masterStatus/MasterStatusList';
 import MasterStatusNew from '../masterStatus/MasterStatusNew';
 import MasterStatusEdit from '../masterStatus/MasterStatusEdit';
+import MasterDetailList from '../master/masterDetail/MasterDetailList';
+import masterDetailNew from '../master/masterDetail/MasterDetailNew';
+import MasterDetailEdit from '../master/masterDetail/MasterDetailEdit';
 
 const MyAppRoutes = () => {
   return (
@@ -29,8 +31,9 @@ const MyAppRoutes = () => {
             <Route exact path='/master/new' component={MasterNew}/>
             <Route exact path='/master/edit/:id' component={MasterEdit}/>
 
-
-            <Route exact path="/detalle" component={Detalle} />
+            <Route exact path="/master/:masterId/detail" component={MasterDetailList} />
+            <Route exact path="/master/:masterId/detail/new" component={masterDetailNew} />
+            <Route exact path="/master/:masterId/detail/edit/:id" component={MasterDetailEdit} />
 
             <Route exact path="/status" component={MasterStatusList} />
             <Route exact path='/status/new' component={MasterStatusNew}/>

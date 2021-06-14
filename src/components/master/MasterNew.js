@@ -3,6 +3,8 @@ import { useHistory } from 'react-router';
 import AlertContext from '../../context/alerts/alertContext';
 import MasterContext from '../../context/masters/masterContext';
 
+
+
 const MasterNew = () => {
 
     const [masterLocal, setMasterLocal] = useState({

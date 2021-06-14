@@ -15,6 +15,12 @@ import {
     EDIT_MASTER_STATUS,
     ELIMINAR_MASTER_STATUS,
     MASTER_STATUS_ERROR,
+    OBTENER_MASTER_DETAIL,
+    EDIT_MASTER_DETAIL,
+    AGREGAR_MASTER_DETAIL,
+    MASTER_DETAIL_ACTUAL,
+    ELIMINAR_MASTER_DETAIL,
+    MASTER_DETAIL_ERROR
 } from '../../types';
 import masterReducer from './masterReducer';
 import masterContext from './masterContext';
@@ -28,7 +34,10 @@ const MasterState = props  => {
        mensaje : null,
 
        masterStatus: null,
-       mastersStatus:[]
+       mastersStatus:[],
+
+       masterDetails : [],
+       masterDetail: null,
     };
 
     const [state, dispatch] = useReducer(masterReducer, initialState);
@@ -76,6 +85,106 @@ const MasterState = props  => {
             })
         }
     }
+
+    const getMasterDetail = async masterId =>{
+        try {
+            const respuesta = await clienteAxios.get(`/api/master/${masterId}/masterDetail`);
+
+            dispatch({
+                type:OBTENER_MASTER_DETAIL,
+                payload: respuesta.data
+            });
+
+        } catch (error) {
+            const alerta = {
+                msg: error.response.data,
+                categoria: 'alerta-error'
+            }
+
+            dispatch({
+                type: MASTER_ERROR,
+                payload: alerta
+            })
+        }
+    }
+
+    const addMasterDetail = async (id,datos) =>{
+        try {
+            const respuesta = await clienteAxios.post(`/api/master/${id}/MasterDetail`,datos);
+            console.log(respuesta)
+
+            dispatch({
+                type:AGREGAR_MASTER_DETAIL,
+                payload: respuesta
+            });
+
+        } catch (error) {
+
+            const alerta = {
+                msg: error.response.data,
+                categoria: 'alerta-error'
+            }
+
+            dispatch({
+                type: MASTER_DETAIL_ERROR,
+                payload: alerta
+            })
+        }
+    }
+
+    const setMasterDetailActual =  id => {
+        dispatch({
+            type: MASTER_DETAIL_ACTUAL,
+            payload: id
+        });
+    };
+
+    const editMasterDetail = async (masterId,datos) =>{
+        try {
+
+            await clienteAxios.put(`/api/master/${masterId}/MasterDetail/${datos.id}`,datos);
+
+            dispatch({
+                type:EDIT_MASTER_DETAIL,
+                payload: datos
+            });
+
+        } catch (error) {
+
+            const alerta = {
+                msg: error.response.data,
+                categoria: 'alerta-error'
+            }
+
+            dispatch({
+                type: MASTER_STATUS_ERROR,
+                payload: alerta
+            })
+        }
+    }
+
+    const deleteMasterDetail = async (masterId, id) => {
+
+        try {
+            await clienteAxios.delete(`/api/master/${masterId}/masterdetail/${id}`);
+
+            dispatch({
+                type: ELIMINAR_MASTER_DETAIL,
+                payload: id
+            });
+
+        } catch (error) {
+            const alerta = {
+                msg: 'Hubo un error', // error.response.data.msg,
+                categoria: 'alerta-error'
+            }
+            dispatch({
+                type: MASTER_ERROR,
+                payload: alerta
+            });
+        }
+
+    };
 
     const setMasterActual =  id => {
         dispatch({
@@ -245,6 +354,8 @@ const MasterState = props  => {
                 mensaje: state.mensaje,
                 mastersStatus: state.mastersStatus,
                 masterStatus : state.masterStatus,
+                masterDetails : state.masterDetails,
+                masterDetail: state.masterDetail,
                 agregarMaster,
                 obtenerMaster,
                 setMasterActual,
@@ -254,7 +365,12 @@ const MasterState = props  => {
                 obtenerMasterStatus,
                 setMAsterStatusActual,
                 editMasterStatus,
-                eliminarMasterStatus
+                eliminarMasterStatus,
+                getMasterDetail,
+                addMasterDetail,
+                setMasterDetailActual,
+                editMasterDetail,
+                deleteMasterDetail
             }}
         >
             {props.children}
