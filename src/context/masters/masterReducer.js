@@ -1,13 +1,11 @@
 import {
     OBTENER_MASTER,
     AGREGAR_MASTER,
-    VALIDAR_MASTER,
     MASTER_ACTUAL,
     ELIMINAR_MASTER,
     MASTER_ERROR,
     OBTENER_MASTER_STATUS,
     AGREGAR_MASTER_STATUS,
-    // VALIDAR_MASTER_STATUS,
     EDIT_MASTER,
     EDIT_MASTER_STATUS,
     MASTER_STATUS_ACTUAL,
@@ -18,7 +16,8 @@ import {
     AGREGAR_MASTER_DETAIL,
     MASTER_DETAIL_ACTUAL,
     ELIMINAR_MASTER_DETAIL,
-    MASTER_DETAIL_ERROR
+    MASTER_DETAIL_ERROR,
+    LOADING
 
 } from '../../types';
 
@@ -29,17 +28,14 @@ export default (state, action)=>{
         case OBTENER_MASTER:
             return {
                 ...state,
-                masters: action.payload
+                masters: action.payload,
+                loading: false
             };
         case AGREGAR_MASTER:
             return {
                 ...state,
-                masters: [...state.masters,action.payload]
-            };
-        case VALIDAR_MASTER:
-            return {
-                ...state,
-                // errorFormulario: true
+                masters: [...state.masters,action.payload],
+                loading: false
             };
         case MASTER_ACTUAL:
             return {
@@ -55,7 +51,8 @@ export default (state, action)=>{
                 masters : state.masters.map(masters =>
                     masters.id === action.payload.id ? masters = action.payload :
                     masters
-                )
+                ),
+                loading: false
             };
         case ELIMINAR_MASTER:
         return {
@@ -64,18 +61,21 @@ export default (state, action)=>{
                 .filter(master =>
                     master.id !== action.payload
                     ),
-            master: null
+            master: null,
+            loading: false
         };
 
         case OBTENER_MASTER_DETAIL:
             return {
                 ...state,
-                masterDetails: action.payload
+                masterDetails: action.payload,
+                loading: false
             };
         case AGREGAR_MASTER_DETAIL:
             return {
                 ...state,
-                masterDetails: [...state.masterDetails,action.payload]
+                masterDetails: [...state.masterDetails,action.payload],
+                loading: false
             };
         case MASTER_DETAIL_ACTUAL:
             return {
@@ -91,7 +91,8 @@ export default (state, action)=>{
                 masterDetails : state.masterDetails.map(masterDetails =>
                     masterDetails.id === action.payload.id ? masterDetails = action.payload :
                     masterDetails
-                )
+                ),
+                loading: false
             };
         case ELIMINAR_MASTER_DETAIL:
         return {
@@ -100,18 +101,21 @@ export default (state, action)=>{
                 .filter(masterDetails =>
                     masterDetails.id !== action.payload
                     ),
-            masterDetail: null
+            masterDetail: null,
+            loading: false
         };
 
         case OBTENER_MASTER_STATUS:
             return {
                 ...state,
-                mastersStatus: action.payload
+                mastersStatus: action.payload,
+                loading: false
             };
         case AGREGAR_MASTER_STATUS:
             return {
                 ...state,
-                mastersStatus: [...state.mastersStatus,action.payload]
+                mastersStatus: [...state.mastersStatus,action.payload],
+                loading: false
             };
         case MASTER_STATUS_ACTUAL:
             return {
@@ -124,6 +128,7 @@ export default (state, action)=>{
         case ELIMINAR_MASTER_STATUS:
             return {
                 ...state,
+                loading: false,
                 mastersStatus: state.mastersStatus
                     .filter(masterStatus =>
                         masterStatus.id !== action.payload
@@ -133,6 +138,7 @@ export default (state, action)=>{
         case EDIT_MASTER_STATUS:
             return{
                 ...state,
+                loading: false,
                 mastersStatus : state.mastersStatus.map(masterStatus =>
                     masterStatus.id === action.payload.id ? masterStatus = action.payload :
                     masterStatus
@@ -144,9 +150,15 @@ export default (state, action)=>{
         case MASTER_ERROR:
             return {
                 ...state,
-                mensaje: action.payload
+                mensaje: action.payload,
+                loading: false
             };
 
+        case LOADING:
+            return {
+                ...state,
+                loading: true
+            };
 
         default:
             return state;

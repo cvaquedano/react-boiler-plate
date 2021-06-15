@@ -4,7 +4,9 @@ import {
     OBTENER_USUARIO,
     LOGIN_EXITOSO,
     LOGIN_ERROR,
-    CERRAR_SESION} from '../../types';
+    CERRAR_SESION,
+    LOADING
+} from '../../types';
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (state, action)=>{
@@ -17,7 +19,8 @@ export default (state, action)=>{
                 ...state,
                 autenticado: true,
                 mensaje: null,
-                cargando: false
+                cargando: false,
+                loading:false
             }
 
         case CERRAR_SESION:
@@ -30,7 +33,8 @@ export default (state, action)=>{
                 mensaje: action.payload,
                 usuario: null,
                 autenticado: null,
-                cargando:true
+                cargando:true,
+                loading:false
             }
 
         case OBTENER_USUARIO:
@@ -38,8 +42,15 @@ export default (state, action)=>{
                 ...state,
                 autenticado: true,
                 usuario: action.payload,
-                cargando:false
+                cargando:false,
+                loading:false
             }
+
+        case LOADING:
+        return{
+            ...state,
+            loading:true
+        }
 
         default:
             return state;

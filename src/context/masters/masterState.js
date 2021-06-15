@@ -3,14 +3,12 @@ import React, { useReducer } from 'react';
 import {
     OBTENER_MASTER,
     AGREGAR_MASTER,
-    // VALIDAR_MASTER,
     MASTER_ACTUAL,
     ELIMINAR_MASTER,
     MASTER_ERROR,
     OBTENER_MASTER_STATUS,
     AGREGAR_MASTER_STATUS,
     EDIT_MASTER,
-    // VALIDAR_MASTER_STATUS,
     MASTER_STATUS_ACTUAL,
     EDIT_MASTER_STATUS,
     ELIMINAR_MASTER_STATUS,
@@ -20,7 +18,9 @@ import {
     AGREGAR_MASTER_DETAIL,
     MASTER_DETAIL_ACTUAL,
     ELIMINAR_MASTER_DETAIL,
-    MASTER_DETAIL_ERROR
+    MASTER_DETAIL_ERROR,
+
+    LOADING
 } from '../../types';
 import masterReducer from './masterReducer';
 import masterContext from './masterContext';
@@ -38,12 +38,18 @@ const MasterState = props  => {
 
        masterDetails : [],
        masterDetail: null,
+
+       loading: true
     };
 
     const [state, dispatch] = useReducer(masterReducer, initialState);
 
     const agregarMaster = async datos =>{
         try {
+            dispatch({
+                type:LOADING
+            });
+
             const respuesta = await clienteAxios.post('/api/master/post', datos);
 
             dispatch({
@@ -67,6 +73,9 @@ const MasterState = props  => {
 
     const obtenerMaster = async () =>{
         try {
+            dispatch({
+                type:LOADING
+            });
             const respuesta = await clienteAxios.get('/api/master');
             dispatch({
                 type:OBTENER_MASTER,
@@ -86,8 +95,80 @@ const MasterState = props  => {
         }
     }
 
+    const setMasterActual =  id => {
+        dispatch({
+            type: MASTER_ACTUAL,
+            payload: id
+        });
+    };
+
+    const editMaster = async datos =>{
+        try {
+
+            dispatch({
+                type:LOADING
+            });
+
+            if(datos.genderText==='1'){
+                datos.gender = Boolean(true);
+            } else {
+                datos.gender = Boolean(false);
+            }
+
+            datos.name = `${datos.firstName.trim()} ${datos.lastName.trim()}`;
+            await clienteAxios.put(`/api/Master/${datos.id}`,datos);
+
+            dispatch({
+                type:EDIT_MASTER,
+                payload: datos
+            });
+
+        } catch (error) {
+
+            const alerta = {
+                msg: error.response.data,
+                categoria: 'alerta-error'
+            }
+
+            dispatch({
+                type: MASTER_STATUS_ERROR,
+                payload: alerta
+            })
+        }
+    }
+
+    const eliminarMaster = async id => {
+
+        try {
+
+            dispatch({
+                type:LOADING
+            });
+            await clienteAxios.delete(`/api/master/${id}`);
+
+            dispatch({
+                type: ELIMINAR_MASTER,
+                payload: id
+            });
+
+        } catch (error) {
+            const alerta = {
+                msg: 'Hubo un error', // error.response.data.msg,
+                categoria: 'alerta-error'
+            }
+            dispatch({
+                type: MASTER_ERROR,
+                payload: alerta
+            });
+        }
+
+    };
+
     const getMasterDetail = async masterId =>{
         try {
+            dispatch({
+                type:LOADING
+            });
             const respuesta = await clienteAxios.get(`/api/master/${masterId}/masterDetail`);
 
             dispatch({
@@ -110,8 +191,12 @@ const MasterState = props  => {
 
     const addMasterDetail = async (id,datos) =>{
         try {
+            dispatch({
+                type:LOADING
+            });
+
             const respuesta = await clienteAxios.post(`/api/master/${id}/MasterDetail`,datos);
-            console.log(respuesta)
+
 
             dispatch({
                 type:AGREGAR_MASTER_DETAIL,
@@ -142,6 +227,9 @@ const MasterState = props  => {
     const editMasterDetail = async (masterId,datos) =>{
         try {
 
+            dispatch({
+                type:LOADING
+            });
             await clienteAxios.put(`/api/master/${masterId}/MasterDetail/${datos.id}`,datos);
 
             dispatch({
@@ -166,6 +254,10 @@ const MasterState = props  => {
     const deleteMasterDetail = async (masterId, id) => {
 
         try {
+
+            dispatch({
+                type:LOADING
+            });
             await clienteAxios.delete(`/api/master/${masterId}/masterdetail/${id}`);
 
             dispatch({
@@ -186,73 +278,18 @@ const MasterState = props  => {
 
     };
 
-    const setMasterActual =  id => {
-        dispatch({
-            type: MASTER_ACTUAL,
-            payload: id
-        });
-    };
-
-    const eliminarMaster = async id => {
-
-        try {
-            await clienteAxios.delete(`/api/master/${id}`);
-
-            dispatch({
-                type: ELIMINAR_MASTER,
-                payload: id
-            });
-
-        } catch (error) {
-            const alerta = {
-                msg: 'Hubo un error', // error.response.data.msg,
-                categoria: 'alerta-error'
-            }
-            dispatch({
-                type: MASTER_ERROR,
-                payload: alerta
-            });
-        }
-
-    };
-
-    const editMaster = async datos =>{
-        try {
-            if(datos.genderText==='1'){
-                datos.gender = Boolean(true);
-            } else {
-                datos.gender = Boolean(false);
-            }
-
-            datos.name = `${datos.firstName.trim()} ${datos.lastName.trim()}`;
-            await clienteAxios.put(`/api/Master/${datos.id}`,datos);
-
-            dispatch({
-                type:EDIT_MASTER,
-                payload: datos
-            });
-
-        } catch (error) {
-
-            const alerta = {
-                msg: error.response.data,
-                categoria: 'alerta-error'
-            }
-
-            dispatch({
-                type: MASTER_STATUS_ERROR,
-                payload: alerta
-            })
-        }
-    }
-
     const agregarMasterStatus = async datos =>{
         try {
+
+            dispatch({
+                type:LOADING
+            });
+
             const respuesta = await clienteAxios.post('/api/MasterStatus/post',datos);
 
             dispatch({
                 type:AGREGAR_MASTER_STATUS,
-                payload: respuesta
+                payload: respuesta.data
             });
 
         } catch (error) {
@@ -271,6 +308,10 @@ const MasterState = props  => {
 
     const editMasterStatus = async datos =>{
         try {
+
+            dispatch({
+                type:LOADING
+            });
             await clienteAxios.put(`/api/MasterStatus/${datos.id}`,datos);
 
             dispatch({
@@ -294,6 +335,11 @@ const MasterState = props  => {
 
     const obtenerMasterStatus = async () =>{
         try {
+
+            dispatch({
+                type:LOADING
+            });
+
             const respuesta = await clienteAxios.get('/api/MasterStatus');
 
             dispatch({
@@ -325,6 +371,10 @@ const MasterState = props  => {
     const eliminarMasterStatus = async id => {
 
         try {
+            dispatch({
+                type:LOADING
+            });
+
             await clienteAxios.delete(`/api/MasterStatus/${id}`);
 
             dispatch({
@@ -356,6 +406,7 @@ const MasterState = props  => {
                 masterStatus : state.masterStatus,
                 masterDetails : state.masterDetails,
                 masterDetail: state.masterDetail,
+                loading: state.loading,
                 agregarMaster,
                 obtenerMaster,
                 setMasterActual,

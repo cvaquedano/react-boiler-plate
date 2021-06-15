@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import MasterContext from '../../context/masters/masterContext';
+import Spinner from '../layout/Spinner';
 
 const MasterStatusEdit = () => {
 
@@ -13,7 +14,7 @@ const MasterStatusEdit = () => {
     });
 
     const masterContext = useContext(MasterContext);
-    const {masterStatus, editMasterStatus} = masterContext;
+    const {loading, masterStatus, editMasterStatus} = masterContext;
 
     useEffect(()=>{
         setMasterStatusLocal(masterStatus)
@@ -75,6 +76,7 @@ const MasterStatusEdit = () => {
                             Save Changes
                        </button>
                    </form>
+                   {loading ? <Spinner/>: null}
                </div>
            </div>
        </div>

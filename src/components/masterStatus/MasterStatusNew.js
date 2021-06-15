@@ -2,6 +2,7 @@ import React, { useState,useContext } from 'react';
 import { useHistory } from 'react-router';
 import AlertContext from '../../context/alerts/alertContext';
 import MasterContext from '../../context/masters/masterContext';
+import Spinner from '../layout/Spinner';
 
 const MasterStatusNew = () => {
 
@@ -12,7 +13,7 @@ const MasterStatusNew = () => {
     const {alert, showAlert} = alertContext;
 
     const masterContext = useContext(MasterContext);
-    const {agregarMasterStatus} = masterContext;
+    const {loading, agregarMasterStatus} = masterContext;
 
     const history = useHistory()
 
@@ -70,7 +71,7 @@ const MasterStatusNew = () => {
                             Add
                        </button>
                    </form>
-                   {/* { cargando ? <p>Cargando...</p> : null} */}
+                   {loading ? <Spinner/>: null}
                </div>
            </div>
        </div>

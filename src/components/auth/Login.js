@@ -2,6 +2,7 @@ import React, {useState, useContext, useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import AlertContext from '../../context/alerts/alertContext';
 import AuthContext from '../../context/authentication/authContext';
+import Spinner from '../layout/Spinner';
 
 const Login = (props) => {
 
@@ -16,7 +17,7 @@ const Login = (props) => {
     const {alert, showAlert} = alertContext;
 
     const authContext = useContext(AuthContext);
-    const {mensaje,autenticado, iniciarSesion} = authContext;
+    const {loading, mensaje,autenticado, iniciarSesion} = authContext;
 
     useEffect(()=>{
         if(autenticado){
@@ -61,6 +62,7 @@ const Login = (props) => {
            {alert ? ( <div className={`alerta ${alert.category}`}>{alert.msg}</div>) : null}
            <div className="contenedor-form sombra-dark">
                <h1>Login</h1>
+               {loading ? <Spinner/>: null}
                <form
                 onSubmit={onsubmit}
                >

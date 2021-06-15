@@ -1,12 +1,13 @@
 import React, { Fragment, useContext, useEffect } from 'react';
 
 import MasterContext from '../../context/masters/masterContext';
+import Spinner from '../layout/Spinner';
 import MasterStatus from './MasterStatus';
 import MasterStatusHeader from './MasterStatusHeader';
 
 const MasterStatusList = () => {
     const masterContext = useContext(MasterContext);
-    const {mastersStatus,obtenerMasterStatus} = masterContext;
+    const {loading, mastersStatus,obtenerMasterStatus} = masterContext;
 
     useEffect(()=> {
         obtenerMasterStatus()
@@ -17,7 +18,7 @@ const MasterStatusList = () => {
        <Fragment>
            <MasterStatusHeader/>
 
-          
+          {loading ? <Spinner/>: null}
            <table className='table table-striped'>
                <thead className='bg-primary table-dark'>
                    <tr>

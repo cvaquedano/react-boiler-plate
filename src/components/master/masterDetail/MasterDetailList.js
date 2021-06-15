@@ -1,12 +1,13 @@
 import React, { Fragment, useContext, useEffect } from 'react';
 import MasterContext from '../../../context/masters/masterContext';
+import Spinner from '../../layout/Spinner';
 import MasterDetail from './MasterDetail';
 import MasterDetailHeader from './MasterDetailHeader';
 
 
 const MasterDetailList = () => {
     const masterContext = useContext(MasterContext);
-    const {master,masterDetails,getMasterDetail} = masterContext;
+    const {master,masterDetails, loading, getMasterDetail} = masterContext;
 
     useEffect(()=> {
         getMasterDetail(master.id)
@@ -16,7 +17,7 @@ const MasterDetailList = () => {
     return (
        <Fragment>
            <MasterDetailHeader/>
-
+           {loading ? <Spinner/>: null}
            <table className='table table-striped'>
                <thead className='bg-primary table-dark'>
                    <tr>
