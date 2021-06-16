@@ -1,5 +1,4 @@
 import React, { useContext, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import AuthContext from '../../context/authentication/authContext';
 
 const Main = () => {
