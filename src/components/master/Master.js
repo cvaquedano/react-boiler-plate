@@ -48,8 +48,8 @@ const Master = ({master}) => {
 
     return (
         <tr>
-            <td>{name}</td>
-            <td><span className="font-weight-bold"> {dob.slice(0,10)}</span></td>
+            <td className='capitalize'>{name}</td>
+            <td > {dob.slice(0,10)}</td>
             <td>{gender ? 'Male' : 'Female'}</td>
             <td className="acciones">
                 <button

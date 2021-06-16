@@ -13,8 +13,8 @@ const MasterDetailHeader = () => {
         <nav className='navbar navbar-expand-lg navbar-dark bg-primary justify-content-between'>
             <div className='container'>
                 <h1>
-                    <Link to={'/main'} className='text-light'>
-                        This header will redirect to the  main page
+                    <Link to={'/master'} className='text-light'>
+                        React hook boiler plate, go to master list
                     </Link>
                 </h1>
             </div>

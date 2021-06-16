@@ -7,7 +7,7 @@ const MasterHeader = () => {
             <div className='container'>
                 <h1>
                     <Link to={'/main'} className='text-light'>
-                        This header will redirect to the  main page
+                        React hook boiler plate
                     </Link>
                 </h1>
             </div>

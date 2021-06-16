@@ -25,6 +25,10 @@ body {
 }
 
 
+.capitalize {
+  text-transform: capitalize;
+}
+
 h1, h2 {
   font-family: var(--headingFont);
   font-weight: 900;

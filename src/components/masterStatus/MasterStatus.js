@@ -42,8 +42,8 @@ const MasterStatus = ({masterStatus}) => {
     }
     return (
         <tr>
-            <td>{value}</td>
-            <td>{description}</td>
+            <td className='capitalize' >{value}</td>
+            <td className='capitalize'>{description}</td>
             <td className="acciones">
             <button
                     type="button"

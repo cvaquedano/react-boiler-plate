@@ -42,10 +42,10 @@ const MasterDetail = ({masterDetail}) => {
 
     return (
         <tr>
-            <td>{value}</td>
+            <td className='capitalize'>{value}</td>
             <td>{quantity}</td>
-            <td>{price}</td>
-            <td>{total}</td>
+            <td>$ {price}</td>
+            <td>$ {total}</td>
             <td className="acciones">
                 <button
                     type="button"
