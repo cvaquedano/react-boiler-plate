@@ -195,12 +195,12 @@ const MasterState = props  => {
                 type:LOADING
             });
 
-            const respuesta = await clienteAxios.post(`/api/master/${id}/MasterDetail`,datos);
+            await clienteAxios.post(`/api/master/${id}/MasterDetail`,datos);
 
 
             dispatch({
                 type:AGREGAR_MASTER_DETAIL,
-                payload: respuesta
+                payload: datos
             });
 
         } catch (error) {

@@ -8,6 +8,12 @@ const Sidebar = () => {
             <div className="proyectos">
                 <div style={{ marginBottom: '15px' }}>
                     <NavLink
+                        to="/main">
+                        Home
+                    </NavLink>
+                </div>
+                <div>
+                    <NavLink
                         to="/master">
                         Master
                     </NavLink>
