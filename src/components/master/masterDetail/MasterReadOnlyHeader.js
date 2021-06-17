@@ -30,7 +30,7 @@ const MasterReadOnlyHeader = () => {
             </fieldset>
             <fieldset>
             <label class="control-label" for="status">Status</label>
-            <input class="form-control" id="status" type="text" value={value} readonly=""/>
+            <input class="form-control" id="status" type="text" value={value ?? null } readonly=""/>
             </fieldset>
       </div>
     );
