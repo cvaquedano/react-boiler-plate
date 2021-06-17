@@ -12,6 +12,8 @@ const MasterReadOnlyHeader = () => {
         getMasterStatusById(masterStatusEntityId)
         // eslint-disable-next-line
     },[]);
+
+    const {value}= masterStatus;
     return (
         <div class="form-group">
             <fieldset>
@@ -27,8 +29,8 @@ const MasterReadOnlyHeader = () => {
             <input class="form-control" id="gender" type="text" value={ gender? "Male" : "Female"} readonly=""/>
             </fieldset>
             <fieldset>
-            <label class="control-label" for="status">Stataus</label>
-            <input class="form-control" id="status" type="text" value={masterStatus.value } readonly=""/>
+            <label class="control-label" for="status">Status</label>
+            <input class="form-control" id="status" type="text" value={value} readonly=""/>
             </fieldset>
       </div>
     );
