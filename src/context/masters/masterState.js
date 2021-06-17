@@ -369,6 +369,8 @@ const MasterState = props  => {
             });
 
             const respuesta = await clienteAxios.get(`/api/MasterStatus/${id}`);
+            console.log(id)
+            console.log(respuesta.data)
 
             dispatch({
                 type:SET_MASTER_STATUS_BY_ID,
