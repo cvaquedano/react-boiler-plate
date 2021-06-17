@@ -148,7 +148,7 @@ const SignUp = (props) => {
                    <div className="campo-form">
                        <input
                        type="submit"
-                       className="btn btn-primario btn-block"
+                       className="btn btn-primary btn-lg btn-block"
                        value="Sign Up"
                        />
 

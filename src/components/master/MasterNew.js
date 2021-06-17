@@ -4,7 +4,11 @@ import AlertContext from '../../context/alerts/alertContext';
 import MasterContext from '../../context/masters/masterContext';
 
 
+import styled from '@emotion/styled'
 
+const InputRadio = styled.input`
+   margin: 0 1rem;
+`;
 const MasterNew = () => {
 
     const [masterLocal, setMasterLocal] = useState({
@@ -110,7 +114,7 @@ const MasterNew = () => {
                             />
                             <div>
                                 <label>Gender</label>
-                                <input
+                                <InputRadio
                                     type="radio"
                                     name="genderText"
                                     value='1'
@@ -118,7 +122,7 @@ const MasterNew = () => {
                                     onChange={updateState}
 
                                 /> Male
-                                <input
+                                <InputRadio
                                     type="radio"
                                     name="genderText"
                                     value='0'
@@ -128,7 +132,7 @@ const MasterNew = () => {
                             </div>
 
                             <label>Status</label>
-                            <select
+                            <select class="custom-select"
                                 onChange={updateState}
                                 name="masterStatusEntityId"
                                 value={masterStatusEntityId}

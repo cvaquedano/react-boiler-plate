@@ -16,10 +16,11 @@ const MasterStatusList = () => {
 
     return (
        <Fragment>
-           <MasterStatusHeader/>
-
-          {loading ? <Spinner/>: null}
-           <table className='table table-striped'>
+           <div className='header'>
+            <MasterStatusHeader/>
+            {loading ? <Spinner/>: null}
+           </div>
+           <table className='table table-hover'>
                <thead className='bg-primary table-dark'>
                    <tr>
                        <th scope='col'>Value</th>
@@ -39,7 +40,6 @@ const MasterStatusList = () => {
 
                </tbody>
            </table>
-       
        </Fragment>
     );
 };

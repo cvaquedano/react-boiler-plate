@@ -7,6 +7,7 @@ import {
     ELIMINAR_MASTER,
     MASTER_ERROR,
     OBTENER_MASTER_STATUS,
+    SET_MASTER_STATUS_BY_ID,
     AGREGAR_MASTER_STATUS,
     EDIT_MASTER,
     MASTER_STATUS_ACTUAL,
@@ -360,6 +361,33 @@ const MasterState = props  => {
         }
     }
 
+    const getMasterStatusById = async id =>{
+        try {
+
+            dispatch({
+                type:LOADING
+            });
+
+            const respuesta = await clienteAxios.get(`/api/MasterStatus/${id}`);
+
+            dispatch({
+                type:SET_MASTER_STATUS_BY_ID,
+                payload: respuesta.data
+            });
+
+        } catch (error) {
+            const alerta = {
+                msg: error.response.data,
+                categoria: 'alerta-error'
+            }
+
+            dispatch({
+                type: MASTER_STATUS_ERROR,
+                payload: alerta
+            })
+        }
+    }
+
     const setMAsterStatusActual =  id => {
 
         dispatch({
@@ -414,6 +442,7 @@ const MasterState = props  => {
                 eliminarMaster,
                 agregarMasterStatus,
                 obtenerMasterStatus,
+                getMasterStatusById,
                 setMAsterStatusActual,
                 editMasterStatus,
                 eliminarMasterStatus,

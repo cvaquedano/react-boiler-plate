@@ -47,7 +47,7 @@ const MasterDetailNew = () => {
 
         setMasterDetailLocal({
             ...masterDetailLocal,
-            [e.target.name]: e.target.value
+            [e.target.name] : isNaN(e.target.value) ? e.target.value : Number( e.target.value)
         })
     }
     return (

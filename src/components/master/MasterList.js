@@ -15,9 +15,11 @@ const MasterList = () => {
 
     return (
        <Fragment>
-           <MasterHeader/>
-           {loading ? <Spinner/>: null}
-           <table className='table table-striped'>
+           <div className='header'>
+            <MasterHeader/>
+            {loading ? <Spinner/>: null}
+           </div>
+           <table className='table table-hover'>
                <thead className='bg-primary table-dark'>
                    <tr>
                        <th scope='col'>Name</th>

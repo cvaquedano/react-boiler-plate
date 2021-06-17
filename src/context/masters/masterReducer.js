@@ -5,6 +5,7 @@ import {
     ELIMINAR_MASTER,
     MASTER_ERROR,
     OBTENER_MASTER_STATUS,
+    SET_MASTER_STATUS_BY_ID,
     AGREGAR_MASTER_STATUS,
     EDIT_MASTER,
     EDIT_MASTER_STATUS,
@@ -124,6 +125,12 @@ export default (state, action)=>{
                     .filter(masterStatus =>
                         masterStatus.id === action.payload
                         )[0]
+            };
+        case SET_MASTER_STATUS_BY_ID:
+            return {
+                ...state,
+                masterStatus: action.payload,
+                loading : false
             };
         case ELIMINAR_MASTER_STATUS:
             return {

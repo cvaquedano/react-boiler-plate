@@ -3,6 +3,7 @@ import MasterContext from '../../../context/masters/masterContext';
 import Spinner from '../../layout/Spinner';
 import MasterDetail from './MasterDetail';
 import MasterDetailHeader from './MasterDetailHeader';
+import MasterReadOnlyHeader from './MasterReadOnlyHeader';
 
 
 const MasterDetailList = () => {
@@ -16,9 +17,14 @@ const MasterDetailList = () => {
 
     return (
        <Fragment>
-           <MasterDetailHeader/>
-           {loading ? <Spinner/>: null}
-           <table className='table table-striped'>
+           <div className='header'>
+            <MasterDetailHeader/>
+            {loading ? <Spinner/>: null}
+           </div>
+           <div className='header'>
+               <MasterReadOnlyHeader/>
+           </div>
+           <table className='table table-hover'>
                <thead className='bg-primary table-dark'>
                    <tr>
                        <th scope='col'>Value</th>

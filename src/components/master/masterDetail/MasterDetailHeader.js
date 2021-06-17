@@ -13,13 +13,15 @@ const MasterDetailHeader = () => {
         <nav className='navbar navbar-expand-lg navbar-dark bg-primary justify-content-between'>
             <div className='container'>
                 <h1>
-                    <Link to={'/master'} className='text-light'>
+                    <Link
+                    to={'/master'}
+                    className='text-light'>
                         React hook boiler plate, go to master list
                     </Link>
                 </h1>
             </div>
             <Link to={`/master/${id}/detail/new`}
-            className='btn btn-danger nuevo-post d-block d-md-inline-block'
+            className='btn btn-secondary'
                 >Add Master Detail &#43;</Link>
             </nav>
     );

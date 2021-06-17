@@ -52,13 +52,13 @@ const MasterStatus = ({masterStatus}) => {
                 >
                     Editar
                 </button>
-                <button
-                    type="button"
-                    className="btn btn-danger"
-                    onClick={() => confirmDeleteMasterStatus(id)}
-                >
-                    Eliminar
-                </button>
+            <button
+                type="button"
+                className="btn btn-danger"
+                onClick={() => confirmDeleteMasterStatus(id)}
+            >
+                Eliminar
+            </button>
             </td>
         </tr>
     );

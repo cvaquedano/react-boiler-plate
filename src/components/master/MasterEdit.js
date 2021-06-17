@@ -1,20 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import MasterContext from '../../context/masters/masterContext';
+import AlertContext from '../../context/alerts/alertContext';
 
 import styled from '@emotion/styled'
-
-const Select = styled.select`
-    display:block;
-    width:100%;
-    padding:1rem;
-    border:1px solid #e1e1e1;
-    -webkit-appearance: none;
-`;
 
 const InputRadio = styled.input`
    margin: 0 1rem;
 `;
+
 
 const MasterEdit = () => {
 
@@ -35,6 +29,10 @@ const MasterEdit = () => {
 
     const masterContext = useContext(MasterContext);
     const {master,mastersStatus,  editMaster, obtenerMasterStatus} = masterContext;
+
+    const alertContext = useContext(AlertContext);
+    const {alert, showAlert} = alertContext;
+
 
     useEffect(()=> {
         obtenerMasterStatus()
@@ -61,6 +59,16 @@ const MasterEdit = () => {
 
     const submitEditMaster = e => {
         e.preventDefault();
+
+        if(firstName.trim() === '' ||
+        lastName.trim() === ''||
+        dob.trim() === '' ||
+        genderText.trim() ==='' ||
+        masterStatusEntityId.trim()===''){
+            showAlert('All fields are requered','alerta-error');
+            return;
+        }
+
 
         if(genderText==='1'){
             setMasterLocal({
@@ -95,6 +103,7 @@ const MasterEdit = () => {
                    <h2 className='text-center mb-4 font-weight-bold'>
                        Edit Master
                    </h2>
+                   {alert ? ( <div className={`alerta ${alert.category}`}>{alert.msg}</div>) : null}
                    <form
                     onSubmit={submitEditMaster}
                    >
@@ -127,25 +136,26 @@ const MasterEdit = () => {
                             />
                             <div>
                                 <label>Gender</label>
-                                <InputRadio
-                                    type="radio"
-                                    name="genderText"
-                                    value='1'
-                                    checked={genderText === "1"}
-                                    onChange={updateState}
+                                <div>
+                                    <InputRadio
+                                        type="radio"
+                                        name="genderText"
+                                        value='1'
+                                        checked={genderText === "1"}
+                                        onChange={updateState}
 
-                                /> Male
-                                <InputRadio
-                                    type="radio"
-                                    name="genderText"
-                                    value='0'
-                                    checked={genderText === "0"}
-                                    onChange={updateState}
-                                /> Female
+                                    /> Male
+                                    <InputRadio
+                                        type="radio"
+                                        name="genderText"
+                                        value='0'
+                                        checked={genderText === "0"}
+                                        onChange={updateState}
+                                    /> Female
+                                </div>
                             </div>
-
                             <label>Status</label>
-                            <Select
+                            <select class="custom-select"
                                 onChange={updateState}
                                 name="masterStatusEntityId"
                                 value={masterStatusEntityId}
@@ -154,7 +164,7 @@ const MasterEdit = () => {
                                 {mastersStatus.map(opcion => (
                                     <option key={opcion.Id} value={opcion.id}>{opcion.value}</option>
                                 ))}
-                            </Select>
+                            </select>
                        </div>
 
                       <button

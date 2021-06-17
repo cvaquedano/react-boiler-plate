@@ -19,7 +19,7 @@ const Bar = () => {
 
            <nav className="nav-principal">
                <button
-                className='btn btn-blank btn-eliminar'
+                className='btn btn-secondary my-2 my-sm-0'
                 onClick={()=>cerrarSesion()}
                >
                    Logout

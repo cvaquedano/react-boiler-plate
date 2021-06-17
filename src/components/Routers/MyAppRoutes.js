@@ -23,7 +23,7 @@ const MyAppRoutes = () => {
         <Sidebar />
         <div className="seccion-principal">
           <Bar />
-          <div className="cotenedor-tareas">
+          <div className="main-display-container">
             <Route exact path="/main" component={Main} />
 
 
